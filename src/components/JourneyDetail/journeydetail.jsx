@@ -6,7 +6,7 @@ export const JourneyDetail = ({ journey }) => {
   console.log(journey);
   return (
     <div className="journey-detail container">
-      <h3>Podrobnosti cesty</h3>
+      <h2>Podrobnosti cesty</h2>
       <div className="stops">
         {journey.stops.map((stop) => (
           <BusStop
