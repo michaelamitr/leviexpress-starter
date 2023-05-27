@@ -2,13 +2,19 @@ import React from 'react';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { Home } from '../Home';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-  Outlet,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Reservation } from '../Reservation/reservation';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: 'reservation',
+    element: <Reservation />,
+  },
+]);
 
 export const App = () => (
   <>
@@ -17,15 +23,3 @@ export const App = () => (
     <Footer />
   </>
 );
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-  },
-
-  {
-    path: 'reservation',
-    element: <Reservation />,
-  },
-]);
