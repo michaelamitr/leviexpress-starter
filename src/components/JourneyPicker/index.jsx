@@ -4,7 +4,12 @@ import './style.css';
 export const JourneyPicker = ({ onJourneyChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(fromCity, toCity, date);
+    // console.log(fromCity, toCity, date);
+    fetch(
+      `https://apps.kodim.cz/daweb/leviexpress/api/journey?fromCity=${fromCity}&toCity=${toCity}&date=${date}`,
+    )
+      .then((response) => response.json())
+      .then((data) => onJourneyChange(data.results));
   };
 
   const [fromCity, setFromCity] = useState('');
@@ -67,7 +72,7 @@ const CityOptions = ({ cities }) => {
     <>
       <option value={''}>Vyberte</option>
       {cities.map((city) => (
-        <option key={city.code} value={city.name}>
+        <option key={city.code} value={city.code}>
           {city.name}
         </option>
       ))}
@@ -80,7 +85,7 @@ const DatesOptions = ({ dates }) => {
     <>
       <option value={''}>Vyberte</option>
       {dates.map((date) => (
-        <option key={date.dateBasic} value={date.dateCs}>
+        <option key={date.dateBasic} value={date.dateBasic}>
           {date.dateCs}
         </option>
       ))}
