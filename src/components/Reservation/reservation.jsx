@@ -11,10 +11,7 @@ export const Reservation = () => {
   useEffect(() => {
     fetch(`https://apps.kodim.cz/daweb/leviexpress/api/reservation?id=${id}`)
       .then((response) => response.json())
-      .then((data) =>
-        // console.log(data),
-        setReservation(data.results),
-      );
+      .then((data) => setReservation(data.results));
   }, []);
   return (
     <>
