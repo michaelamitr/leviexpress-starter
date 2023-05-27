@@ -2,10 +2,31 @@ import React, { useState } from 'react';
 import { JourneyPicker } from '../JourneyPicker';
 import { JourneyDetail } from '../JourneyDetail/journeydetail';
 import { SelectedSeat } from '../SelectedSeat/selectedseat';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   const handleJourneyChange = (journey) => {
     setJourney(journey);
+  };
+
+  const handleBuy = () => {
+    console.log('funguju!');
+
+    fetch(`https://apps.kodim.cz/daweb/leviexpress/api/reservation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'create',
+        seat: journey.autoSeat,
+        journeyId: journey.journeyId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => navigate(`/reservation/${data.results.reservationId}`));
   };
 
   const [journey, setJourney] = useState(null);
@@ -16,6 +37,13 @@ export const Home = () => {
       <JourneyPicker onJourneyChange={handleJourneyChange} />
       {journey && <JourneyDetail journey={journey} />}
       {journey && <SelectedSeat number={journey.autoSeat} />}
+      {journey && (
+        <div className="controls container">
+          <button className="btn btn--big" type="button" onClick={handleBuy}>
+            Rezervovat
+          </button>
+        </div>
+      )}
     </main>
   );
 };

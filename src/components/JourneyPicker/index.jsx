@@ -56,7 +56,13 @@ export const JourneyPicker = ({ onJourneyChange }) => {
             </select>
           </label>
           <div className="journey-picker__controls">
-            <button className="btn" type="submit">
+            <button
+              className="btn"
+              type="submit"
+              disabled={
+                fromCity === '' || toCity === '' || date === '' ? true : false
+              }
+            >
               Vyhledat spoj
             </button>
           </div>
