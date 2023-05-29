@@ -1,10 +1,16 @@
 import React from 'react';
 import './seat.css';
 
-export const Seat = ({ number, isOccupied }) => {
+export const Seat = ({ number, isOccupied, isSelected }) => {
   return (
     <svg
-      className={isOccupied ? 'seat seat--occupied' : 'seat'}
+      className={
+        isSelected
+          ? 'seat seat--selected'
+          : isOccupied
+          ? 'seat seat--occupied'
+          : 'seat'
+      }
       viewBox="0 0 100 100"
       role="button"
     >

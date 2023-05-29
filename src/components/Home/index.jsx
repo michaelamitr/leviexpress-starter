@@ -37,7 +37,11 @@ export const Home = () => {
       <JourneyPicker onJourneyChange={handleJourneyChange} />
       {journey && <JourneyDetail journey={journey} />}
       {journey && (
-        <SeatPicker seats={journey.seats} journeyId={journey.journeyId} />
+        <SeatPicker
+          seats={journey.seats}
+          journeyId={journey.journeyId}
+          selectedSeat={journey.autoSeat}
+        />
       )}
       {journey && (
         <div className="controls container">
