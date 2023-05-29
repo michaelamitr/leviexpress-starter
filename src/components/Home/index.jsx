@@ -7,9 +7,20 @@ import { SeatPicker } from '../SeatPicker/seatpicker';
 export const Home = () => {
   const navigate = useNavigate();
 
+  const [journey, setJourney] = useState(null);
+
+  const [userSeat, setUserSeat] = useState(null);
+
   const handleJourneyChange = (journey) => {
     setJourney(journey);
+    setUserSeat(journey.autoSeat);
   };
+
+  const handleSeat = (newSeatNumber) => {
+    setUserSeat(newSeatNumber);
+  };
+
+  console.log('This seat: ' + userSeat);
 
   const handleBuy = () => {
     console.log('funguju!');
@@ -21,15 +32,13 @@ export const Home = () => {
       },
       body: JSON.stringify({
         action: 'create',
-        seat: journey.autoSeat,
+        seat: userSeat,
         journeyId: journey.journeyId,
       }),
     })
       .then((response) => response.json())
       .then((data) => navigate(`/reservation/${data.results.reservationId}`));
   };
-
-  const [journey, setJourney] = useState(null);
 
   console.log(journey);
   return (
@@ -40,7 +49,8 @@ export const Home = () => {
         <SeatPicker
           seats={journey.seats}
           journeyId={journey.journeyId}
-          selectedSeat={journey.autoSeat}
+          selectedSeat={userSeat}
+          onSeatSelected={handleSeat}
         />
       )}
       {journey && (
